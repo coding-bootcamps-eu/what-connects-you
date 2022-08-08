@@ -1,27 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <h1 class="app__header">What connects you?</h1>
+  <div class="name-form">
+    <input
+      type="text"
+      name="name-input"
+      id="name-input"
+      v-model="attendee"
+      @keypress.enter="addAttendee"
+    />
+    <label for="name-input"></label>
+    <button class="button" @click="addAttendee">Add</button>
+    <button class="button">Create Sessions</button>
+  </div>
+  <div>
+    <ol>
+      <li v-for="attendee in attendees" :key="attendee">{{ attendee }}</li>
+    </ol>
+  </div>
 </template>
 
 <script lang="ts">
+// todo: add missing unit tests
 import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
 
 export default defineComponent({
   name: "App",
-  components: {
-    HelloWorld,
+  components: {},
+
+  data(): {
+    attendees: string[];
+    attendee: string;
+  } {
+    return {
+      attendees: [],
+      attendee: "",
+    };
+  },
+  methods: {
+    addAttendee() {
+      if (this.attendee) {
+        this.attendees.push(this.attendee);
+        this.attendee = "";
+      }
+    },
   },
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
