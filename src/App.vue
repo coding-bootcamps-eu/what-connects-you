@@ -5,32 +5,42 @@
       type="text"
       name="name-input"
       id="name-input"
-      v-model="attendee.name"
+      v-model="attendee"
       @keypress.enter="addAttendee"
     />
     <label for="name-input"></label>
     <button class="button" @click="addAttendee">Add</button>
     <button class="button">Create Sessions</button>
   </div>
+  <div>
+    <ol>
+      <li v-for="attendee in attendees" :key="attendee">{{ attendee }}</li>
+    </ol>
+  </div>
 </template>
 
 <script lang="ts">
+// todo: add missing unit tests
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "App",
   components: {},
-  data() {
+
+  data(): {
+    attendees: string[];
+    attendee: string;
+  } {
     return {
-      attendees: [{}],
-      attendee: { name: null },
+      attendees: [],
+      attendee: "",
     };
   },
   methods: {
     addAttendee() {
-      if (this.attendee.name) {
-        this.attendees.push({ name: this.attendee.name });
-        this.attendee.name = null;
+      if (this.attendee) {
+        this.attendees.push(this.attendee);
+        this.attendee = "";
       }
     },
   },
