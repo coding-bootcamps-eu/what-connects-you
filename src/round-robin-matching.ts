@@ -29,7 +29,7 @@ export const rotateAttendeeArray = (array: string[]) => {
 
 export const createSessions = (attendeeNames: string[]): Sessions => {
   if (attendeeNames.length < 2) {
-    // todo: throw new Error("Lenght of Attendeelist should be atleast 2");
+    //throw new Error("Lenght of Attendeelist should be atleast 2");
   }
   const sessions: Sessions = [];
   let namesArray = Array.from(attendeeNames);
