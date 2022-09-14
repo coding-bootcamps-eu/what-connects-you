@@ -1,52 +1,56 @@
 <template>
-  <h1 class="app__header">What connects you?</h1>
-  <div class="name-form">
-    <input
-      type="text"
-      name="name-input"
-      id="name-input"
-      v-model="attendee"
-      @keypress.enter="addAttendee"
-      class="name-input"
-    />
-    <label for="name-input"></label>
-    <button class="button" @click="addAttendee()">Add</button>
-    <button
-      class="button"
-      @click="createSessions()"
-      :disabled="!isValidSession"
-    >
-      Create Sessions
-    </button>
-  </div>
-  <div class="added-attendees">
-    <ol class="attendee-list">
-      <li
-        v-for="attendee in attendees"
-        :key="attendee"
-        class="attendee-list__item"
+  <div class="app__wrapper">
+    <h1 class="app__header">What connects you?</h1>
+    <div class="name-form">
+      <input
+        type="text"
+        name="name-input"
+        id="name-input"
+        v-model="attendee"
+        @keypress.enter="addAttendee"
+        class="name-input"
+        placeholder="Enter Name"
+      />
+      <label for="name-input"></label>
+      <button class="button" @click="addAttendee()">Add</button>
+      <button
+        class="button"
+        @click="createSessions()"
+        :disabled="!isValidSession"
       >
-        {{ attendee }}
-      </li>
-    </ol>
-  </div>
-  <div class="sessions">
-    <ol class="sessions__list">
-      <li
-        v-for="(session, i) in sessions"
-        :key="i"
-        class="sessions__list-item"
-        :class="{ finished: isSessionCompleted(session) }"
-      >
-        <h2>Session {{ i + 1 }}</h2>
-        <p v-for="(singleSession, j) in session" :key="j">
-          {{ session[j][0] + " - " + session[j][1] }}
-        </p>
-        <button @click="finishSession(session)" class="button">
-          Session finished
-        </button>
-      </li>
-    </ol>
+        Create Sessions
+      </button>
+    </div>
+    <div class="added-attendees">
+      <h3 class="added-attendees__header">Added attendees:</h3>
+      <ol class="added-attendees__list">
+        <li
+          v-for="attendee in attendees"
+          :key="attendee"
+          class="attendee-list__item"
+        >
+          {{ attendee }}
+        </li>
+      </ol>
+    </div>
+    <div class="sessions">
+      <ol class="sessions__list">
+        <li
+          v-for="(session, i) in sessions"
+          :key="i"
+          class="sessions__list-item"
+          :class="{ finished: isSessionCompleted(session) }"
+        >
+          <h2>Session {{ i + 1 }}</h2>
+          <p v-for="(singleSession, j) in session" :key="j">
+            {{ session[j][0] + " - " + session[j][1] }}
+          </p>
+          <button @click="finishSession(session)" class="button">
+            Session finished
+          </button>
+        </li>
+      </ol>
+    </div>
   </div>
 </template>
 
@@ -72,9 +76,7 @@ export default defineComponent({
       completedSessions: [],
     };
   },
-  // created() {
-  //   this.createSessions();
-  // },
+
   computed: {
     isValidSession: function (): boolean {
       return this.attendees.length > 1 && this.attendees.length % 2 === 0;
@@ -101,12 +103,119 @@ export default defineComponent({
 </script>
 
 <style>
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200italic,300,300italic,regular,italic,600,600italic,700,700italic,900,900italic);
+
+:root {
+  --primary: #6a1cc3;
+  --primary-inactive: rgba(106, 28, 195, 0.38);
+  --secondary: #8849cf;
+
+  --primary-text: rgba(0, 0, 0, 0.87);
+
+  --bg-white: #fbfbfb;
+
+  --font-primary: "Source Sans Pro", sans-serif;
+  --font-secondary: "Montserrat", sans-serif;
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: var(--font-primary);
+  margin: 0;
 }
+.app__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app__header {
+  font-family: Montserrat;
+  font-size: 2rem;
+  color: var(--bg-white);
+  background-color: var(--primary);
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .app__header {
+    font-size: 3rem;
+  }
+}
+
+.name-form {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.name-input {
+  min-width: 16rem;
+  height: 3rem;
+  border: 2px solid var(--primary);
+  border-radius: 2px;
+  font-size: 1.5rem;
+  color: var(--primary-text);
+  margin: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.name-input::placeholder {
+  color: var(--primary-inactive);
+}
+
+.button {
+  border: 2px solid var(--primary);
+  border-radius: 2px;
+  box-shadow: 3px 3px 0 var(--primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  height: 3rem;
+  margin: 0.5rem;
+  padding: 0 1rem;
+  background-color: var(--bg-white);
+  color: var(--primary);
+}
+
+.added-attendees {
+  margin-top: 1.5rem;
+}
+
+.added-attendees__header {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.added-attendees__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0.5rem 0;
+  padding: 0;
+}
+
+.attendee-list__item {
+}
+
+.sessions {
+  margin-top: 2rem;
+}
+
 .sessions__list {
   list-style: none;
 }
