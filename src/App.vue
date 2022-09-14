@@ -21,7 +21,7 @@
         Create Sessions
       </button>
     </div>
-    <div class="added-attendees">
+    <div class="added-attendees" v-if="sessions.length === 0">
       <h3 class="added-attendees__header">Added attendees:</h3>
       <ol class="added-attendees__list">
         <li
@@ -41,10 +41,12 @@
           class="sessions__list-item"
           :class="{ finished: isSessionCompleted(session) }"
         >
-          <h2>Session {{ i + 1 }}</h2>
-          <p v-for="(singleSession, j) in session" :key="j">
-            {{ session[j][0] + " - " + session[j][1] }}
-          </p>
+          <h2 class="sessions__heading">Session {{ i + 1 }}</h2>
+          <div class="sessions__pairings">
+            <p v-for="(singleSession, j) in session" :key="j">
+              {{ session[j][0] + " - " + session[j][1] }}
+            </p>
+          </div>
           <button @click="finishSession(session)" class="button">
             Session finished
           </button>
@@ -187,6 +189,15 @@ export default defineComponent({
   padding: 0 1rem;
   background-color: var(--bg-white);
   color: var(--primary);
+  cursor: pointer;
+  transition: 0.1s all;
+}
+
+.button:active {
+  background-color: var(--primary);
+  color: var(--bg-white);
+  box-shadow: 0px 0px 0 var(--primary);
+  transform: translate(3px, 3px);
 }
 
 .added-attendees {
@@ -209,15 +220,47 @@ export default defineComponent({
   padding: 0;
 }
 
-.attendee-list__item {
-}
-
 .sessions {
   margin-top: 2rem;
+  margin-bottom: 4rem;
+  width: 100%;
+}
+
+.sessions__heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .sessions__heading {
+    font-size: 3rem;
+  }
 }
 
 .sessions__list {
+  padding: 0;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.sessions__list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   list-style: none;
+  border-bottom: 1px solid black;
+  padding: 2rem 0;
+}
+
+.sessions__pairings {
+  margin: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .sessions__pairings {
+    font-size: 1.5rem;
+  }
 }
 
 .finished {
