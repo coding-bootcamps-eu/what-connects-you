@@ -1,7 +1,7 @@
 <template>
   <div class="app__wrapper">
     <h1 class="app__header">What connects you?</h1>
-    <div class="name-form">
+    <div class="name-form" v-if="sessions.length === 0">
       <input
         type="text"
         name="name-input"
@@ -21,6 +21,9 @@
         Create Sessions
       </button>
     </div>
+    <button class="button" @click="resetSession" v-if="sessions.length != 0">
+      Reset
+    </button>
     <div class="added-attendees" v-if="sessions.length === 0">
       <h3 class="added-attendees__header">Added attendees:</h3>
       <ol class="added-attendees__list">
@@ -100,6 +103,10 @@ export default defineComponent({
     isSessionCompleted(session: Session) {
       return this.completedSessions.includes(session);
     },
+    resetSession() {
+      this.sessions = [];
+      this.attendees = [];
+    },
   },
 });
 </script>
@@ -144,7 +151,7 @@ export default defineComponent({
   font-weight: 600;
   width: 100%;
   height: 100%;
-  margin: 0;
+  margin: 0 0 2rem 0;
   padding: 2rem 0;
   text-align: center;
 }
@@ -160,7 +167,6 @@ export default defineComponent({
   width: 100%;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 1.5rem;
 }
 
 .name-input {
