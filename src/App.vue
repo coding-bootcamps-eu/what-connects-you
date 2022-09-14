@@ -27,7 +27,7 @@
         <li
           v-for="attendee in attendees"
           :key="attendee"
-          class="attendee-list__item"
+          class="added-attendees__list-item"
         >
           {{ attendee }}
         </li>
@@ -201,13 +201,19 @@ export default defineComponent({
 }
 
 .added-attendees {
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
 }
 
 .added-attendees__header {
   margin: 0;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .added-attendees__header {
+    font-size: 2rem;
+  }
 }
 
 .added-attendees__list {
@@ -220,8 +226,12 @@ export default defineComponent({
   padding: 0;
 }
 
+.added-attendees__list-item {
+  font-size: 1.5rem;
+}
+
 .sessions {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   margin-bottom: 4rem;
   width: 100%;
 }
@@ -231,9 +241,9 @@ export default defineComponent({
   font-weight: 600;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
   .sessions__heading {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 }
 
