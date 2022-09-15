@@ -12,16 +12,24 @@
         placeholder="Enter Name"
       />
       <label for="name-input"></label>
-      <button class="button" @click="addAttendee()">Add</button>
+      <button class="button" @click="addAttendee()" id="addAttendeeButton">
+        Add
+      </button>
       <button
         class="button"
         @click="createSessions()"
         :disabled="!isValidSession"
+        id="createSessionsButton"
       >
         Create Sessions
       </button>
     </div>
-    <button class="button" @click="resetSession" v-if="sessions.length != 0">
+    <button
+      class="button"
+      @click="resetSession"
+      v-if="sessions.length != 0"
+      id="resetButton"
+    >
       Reset
     </button>
     <div class="added-attendees" v-if="sessions.length === 0">
