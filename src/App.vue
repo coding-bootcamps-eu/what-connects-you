@@ -25,7 +25,12 @@
       Reset
     </button>
     <div class="added-attendees" v-if="sessions.length === 0">
-      <h3 class="added-attendees__header">Added attendees:</h3>
+      <h3 v-if="attendees.length != 0" class="added-attendees__header">
+        Added attendees:
+      </h3>
+      <h3 v-if="attendees.length === 0" class="added-attendees__header">
+        No attendees added
+      </h3>
       <ol class="added-attendees__list">
         <li
           v-for="attendee in attendees"
