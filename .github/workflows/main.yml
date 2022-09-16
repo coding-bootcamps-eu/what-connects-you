@@ -28,3 +28,4 @@ jobs:
       - run: npm ci
       # Run the command to start your dev server followed by the & sign
       - run: npm run test:e2e -- --headless
+      - run: npm run test:unit
