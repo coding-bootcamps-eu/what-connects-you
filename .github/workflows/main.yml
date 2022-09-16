@@ -1,15 +1,30 @@
-name: Cypress Tests
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-on: [push]
+name: CI
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
-  cypress-run:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v4.2.0 # use the explicit version number
 
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      # Run the command to install node deps
+      - run: npm ci
+      # Run the command to start your dev server followed by the & sign
+      - run: npm run test:e2e -- --headless
