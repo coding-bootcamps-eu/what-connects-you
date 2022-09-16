@@ -7,7 +7,7 @@ test("should create correct number of sessions", () => {
   expect(sessions.length).toEqual(3);
 });
 
-test("should throw errer if attendee-list-length is below 2", () => {
+test("should throw error if attendee-list-length is below 2", () => {
   const attendees = ["a"];
 
   expect(() => {
